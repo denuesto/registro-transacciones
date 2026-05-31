@@ -1,1 +1,86 @@
-<p>dashboard works!</p>
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1">Inicio</span>
+        <button class="btn btn-outline-secondary btn-sm" (click)="logout()">Cerrar Sesión</button>
+    </div>
+</nav>
+
+<div class="container  mt-4 mb-5">
+    <div class="bg-light p-4 rounded shadow-sm mb-4">
+        <h1 class="display-6">Alta operación</h1>
+        <p class="lead text-muted"> Captura la información solicitada</p>
+        <hr class="my-4"/>
+  
+        <div class="card-body">
+            <form [formGroup]="operacionForm" (ngSubmit)="onSubmit()">
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+                        <label for="operacion" class="form-label">Operación</label>
+                        <input type="text" id="operacion" formControlName="operacion" class="form-control" placeholder="COMPRA-01"
+                                [class.is-invalid]="operacionForm.get('operacion')?.touched && operacionForm.get('operacion')?.invalid">
+                        
+                        @if( operacionForm.get('operacion')?.touched){
+                            @if( operacionForm.get('operacion')?.hasError('required')){
+                                <div class="invalid-feedback">El campo operacion es requerida</div>
+                            }
+                            @if( operacionForm.get('operacion')?.hasError('maxlength')){
+                                <div class="invalid-feedback">Máximo 20 caracteres permitidos</div>
+                            }
+                        }
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="importe" class="form-label">Importe ($)</label>
+                        <input type="text" id="importe" formControlName="importe" class="form-control" placeholder="0.00"
+                            [class.is-invalid]="operacionForm.get('importe')?.touched && operacionForm.get('importe')?.invalid">
+                        
+                        @if (operacionForm.get('importe')?.touched) {
+                            @if (operacionForm.get('importe')?.hasError('required')) {
+                                <div class="invalid-feedback">El campo importe es requerido.</div>
+                            }
+                            @if (operacionForm.get('importe')?.hasError('pattern')) {
+                                <div class="invalid-feedback">Formato inválido. Use números con hasta 2 decimales (ej: 150.50).</div>
+                            }
+                        }
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="cliente" class="form-label">Cliente</label>
+                        <input type="text" id="cliente" formControlName="cliente" class="form-control" placeholder="Nombre del cliente"
+                            [class.is-invalid]="operacionForm.get('cliente')?.touched && operacionForm.get('cliente')?.invalid">
+                        
+                        @if (operacionForm.get('cliente')?.touched) {
+                            @if (operacionForm.get('cliente')?.hasError('required')) {
+                                <div class="invalid-feedback">El campo cliente es requerido.</div>
+                            }
+                            @if (operacionForm.get('cliente')?.hasError('maxlength')) {
+                                <div class="invalid-feedback">Máximo 50 caracteres permitidos.</div>
+                            }
+                        }
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="secreto" class="form-label">Código Secreto</label>
+                        <input type="text" id="secreto" formControlName="secreto" class="form-control" placeholder="Clave de seguridad"
+                            [class.is-invalid]="operacionForm.get('secreto')?.touched && operacionForm.get('secreto')?.invalid">
+                        
+                        @if (operacionForm.get('secreto')?.touched) {
+                            @if (operacionForm.get('secreto')?.hasError('required')) {
+                                <div class="invalid-feedback">El campo secreto es requerido.</div>
+                            }
+                            @if (operacionForm.get('secreto')?.hasError('maxlength')) {
+                                <div class="invalid-feedback">Máximo 50 caracteres permitidos.</div>
+                            }
+                        }
+                    </div>
+                </div>
+
+                <div class="text-end mt-3">
+                    <button type="submit" class="btn btn-primary px4">Enviar</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
